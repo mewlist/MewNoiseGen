@@ -89,17 +89,30 @@ namespace Mewlist.MewNoiseGen
             Debug.Log(path);
             if (!string.IsNullOrEmpty(path))
             {
-                var tex = Create3DTexture(profile.Resolution);
-                var sw = new Stopwatch();
-                sw.Start();
-                TextureGenerator.Gen3D(tex, profile, (i, total) =>
+                try
                 {
-                    return EditorUtility.DisplayCancelableProgressBar("generating", sw.Elapsed.ToString(), (float) i / total);
-                });
-                sw.Stop();
-                AssetDatabase.CreateAsset(tex, path);
-                EditorUtility.ClearProgressBar();
-                Debug.Log(sw.Elapsed);
+                    var tex = Create3DTexture(profile.Resolution);
+                    var sw = new Stopwatch();
+                    sw.Start();
+                    TextureGenerator.Gen3D(tex, profile,
+                        (i, total) =>
+                        {
+                            return EditorUtility.DisplayCancelableProgressBar("generating", sw.Elapsed.ToString(),
+                                (float) i / total);
+                        });
+                    sw.Stop();
+                    AssetDatabase.CreateAsset(tex, path);
+                    Debug.Log(sw.Elapsed);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+                finally
+                {
+                    EditorUtility.ClearProgressBar();
+                }
             }
         }
         

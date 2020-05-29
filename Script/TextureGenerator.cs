@@ -24,7 +24,8 @@ namespace Mewlist.MewNoiseGen
                     var wx = x * referenceSize / tw;
                     var wy = y * referenceSize / th;
                     var wz = 1f;
-                    var i = (((x % tw) + tw * (y % th)) + 100 * pixelCount) % pixelCount;
+                    var i = ((x % tw) + tw * (y % th)) % pixelCount;
+                    if (i < 0) i = pixelCount - (-i) % pixelCount;
 
                     if (profile.Warp) profile.FastNoise.GradientPerturbFractal(ref wx, ref wy, ref wz);
                     var fade = shape.Density(new Vector3((float)x / tw, (float)y / th, 0));
@@ -62,7 +63,8 @@ namespace Mewlist.MewNoiseGen
                     var ix = (pos.x % tw);
                     var iy = tw * (pos.y % th);
                     var iz = td * tw * (pos.z % td);
-                    var i = ((ix + iy + iz) + 1000 * pixelCount) % pixelCount;
+                    var i = (ix + iy + iz) % pixelCount;
+                    if (i < 0) i = pixelCount - (-i) % pixelCount;
 
                     if (profile.Warp) profile.FastNoise.GradientPerturbFractal(ref wx, ref wy, ref wz);
                     var fade = shape.Density(new Vector3((float)pos.x / tw, (float)pos.y / th, (float)pos.z / td));
