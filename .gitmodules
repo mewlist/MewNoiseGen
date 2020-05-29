@@ -1,0 +1,3 @@
+[submodule "FastNoise_CSharp"]
+	path = FastNoise_CSharp
+	url = git@github.com:Auburns/FastNoise_CSharp.git
