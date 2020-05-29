@@ -209,7 +209,7 @@ namespace Mewlist.MewNoiseGen
 
         public Shape[] Shapes
         {
-            get { return shapes; }
+            get { return shapes ?? (shapes = new Shape [] {}); }
             set { shapes = value; }
         }
 
