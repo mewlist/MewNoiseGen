@@ -72,7 +72,7 @@ namespace Mewlist.MewNoiseGen
             Debug.Log(path);
             if (!string.IsNullOrEmpty(path))
             {
-                var tex = Create2DTexture(profile.Resolution);
+                var tex = Create2DTexture(CalcResolution(profile.Resolution), textureFormat);
                 var sw = new Stopwatch();
                 sw.Start();
                 TextureGenerator.Gen2D(tex, profile);
@@ -91,7 +91,7 @@ namespace Mewlist.MewNoiseGen
             {
                 try
                 {
-                    var tex = Create3DTexture(profile.Resolution);
+                    var tex = Create3DTexture(CalcResolution(profile.Resolution), textureFormat);
                     var sw = new Stopwatch();
                     sw.Start();
                     TextureGenerator.Gen3D(tex, profile,
@@ -267,7 +267,7 @@ namespace Mewlist.MewNoiseGen
             }
         }
 
-        private int CalcResolution(int quality)
+        private static int CalcResolution(int quality)
         {
             return 32 * Mathf.RoundToInt(Mathf.Pow(2, quality));
         }
@@ -286,9 +286,8 @@ namespace Mewlist.MewNoiseGen
             }
         }
 
-        private Texture2D Create2DTexture(int quality)
+        private static Texture2D Create2DTexture(int resolution, TextureFormat textureFormat)
         {
-            var resolution = CalcResolution(quality);
             return new Texture2D(resolution, resolution, textureFormat, false)
             {
                 filterMode = FilterMode.Bilinear,
@@ -296,9 +295,8 @@ namespace Mewlist.MewNoiseGen
             };
         }
 
-        private Texture3D Create3DTexture(int quality)
+        public static Texture3D Create3DTexture(int resolution, TextureFormat textureFormat)
         {
-            var resolution = CalcResolution(quality);
             return new Texture3D(resolution, resolution, resolution, textureFormat, false)
             {
                 filterMode = FilterMode.Bilinear,
