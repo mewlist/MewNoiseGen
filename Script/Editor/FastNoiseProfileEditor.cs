@@ -25,7 +25,7 @@ namespace Mewlist.MewNoiseGen
 
             var texSize  = CalcResolution(profile.Resolution);
             textureFormat = TextureFormat.RGBA32;
-            switch ((NoiseProfile.ColorFormat)colorFormat.intValue)
+            switch (profile.TargetColorFormat)
             {
                 case NoiseProfile.ColorFormat.R8:
                     textureFormat = TextureFormat.R8;
@@ -172,6 +172,8 @@ namespace Mewlist.MewNoiseGen
 
         private void DrawPreview()
         {
+            profile = target as NoiseProfile;
+
             var autoRedraw = serializedObject.FindProperty("autoRedraw");
             var previewQuality = serializedObject.FindProperty("previewQuality");
             EditorGUILayout.PropertyField(autoRedraw);
@@ -180,7 +182,7 @@ namespace Mewlist.MewNoiseGen
                         
             profile.Apply();
 
-            if (autoRedraw.boolValue || GUILayout.Button("Preview"))
+            if (profile.AutoRedraw || GUILayout.Button("Preview"))
             {
                 if (profile.CellularReturnType == FastNoise.CellularReturnType.NoiseLookup
                     && profile.CellularNoiseLookup == null)

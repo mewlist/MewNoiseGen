@@ -104,7 +104,7 @@ namespace Mewlist.MewNoiseGen
         public override Bounds Bounds()
         {
             var l = Points;
-            var tl = l.Select(x => quaternion * x);
+            var tl = l.Select(x => quaternion * x).ToArray();
             var min = tl.Aggregate(Vector3.Min);
             var max = tl.Aggregate(Vector3.Max);
             return new Bounds(Position, max - min);

@@ -104,6 +104,14 @@ namespace Mewlist.MewNoiseGen
             }
         }
 
+        public ColorFormat TargetColorFormat
+        {
+            get
+            {
+                return colorFormat;
+            }
+        }
+
         public FastNoise.NoiseType FastNoiseType
         {
             get {
@@ -222,6 +230,14 @@ namespace Mewlist.MewNoiseGen
         public int Resolution
         {
             get { return resolution; }
+        }
+
+        public bool AutoRedraw
+        {
+            get
+            {
+                return autoRedraw;
+            }
         }
 
         public void Apply()
